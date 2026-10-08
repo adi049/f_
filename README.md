@@ -28,3 +28,6 @@ npm run dev
 npm run build
 npm run typecheck
 ```
+
+
+Production verification pass.
