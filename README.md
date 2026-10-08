@@ -3,12 +3,12 @@
 Production-oriented lead outreach CRM for cold calling and manual WhatsApp outreach.
 
 ## Stack
-- Next.js App Router + React
+- Next.js App Router + React + Supabase Auth
 - Tailwind CSS
-- Drizzle ORM
-- Supabase PostgreSQL
+- Supabase PostgreSQL + RLS
 - SheetJS + PapaParse
 - Supabase Edge Function for external lead API proxying
+- Browser-side Supabase data layer with email/password Auth
 
 ## Main workflow
 Import Excel/CSV or fetch leads -> organize into folders -> call/WhatsApp -> record outreach -> add notes -> schedule follow-ups -> resolve reminders -> convert/close.
@@ -18,8 +18,8 @@ Import Excel/CSV or fetch leads -> organize into folders -> call/WhatsApp -> rec
 - WhatsApp actions open a prefilled wa.me message; the user manually presses Send.
 - No fake dashboard metrics or fake lead records.
 - Secrets stay server-side.
-- Apply the SQL migration in `supabase/migrations/001_lead_crm.sql` to the intended Supabase project.
-- Configure `.env.local` from `.env.example`.
+- The production Supabase project is wired for this app; migrations live in `supabase/migrations/`. Set `.env.local` from `.env.example`.
+- 
 
 ## Commands
 ```bash
