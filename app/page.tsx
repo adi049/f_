@@ -36,7 +36,7 @@ export default function Home(){
    supabase.from("notes").select("*").order("created_at",{ascending:false}).limit(100),
    supabase.from("api_configs").select("*").order("created_at",{ascending:false})
   ]);
-  if(l.data)setLeads(l.data);if(f.data)setFolders(f.data);if(fu.data)setFollowups(f.data);if(t.data)setTemplates(t.data);if(a.data)setActivities(a.data);if(arguments.length){ } const p=(arguments as any); setBusy(false);
+  if(l.data)setLeads(l.data);if(f.data)setFolders(f.data);if(fu.data)setFollowups(fu.data);if(t.data)setTemplates(t.data);if(a.data)setActivities(a.data);if(p.data)setProgress(p.data);if(n.data)setNotes(n.data);if(ac.data)setApiConfigs(ac.data);setBusy(false);
  }
  useEffect(()=>{supabase.auth.getUser().then(({data})=>{if(data.user){setUser(data.user);load(data.user)}else window.location.href="/login"});const {data}=supabase.auth.onAuthStateChange((_,s)=>{if(s?.user)setUser(s.user);});return()=>data.subscription.unsubscribe()},[]);
 
