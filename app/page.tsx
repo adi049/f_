@@ -2,7 +2,7 @@
 import {useEffect,useMemo,useRef,useState} from "react";
 import * as XLSX from "xlsx";
 import {supabase} from "../lib/supabase";
-import {Search,Phone,MessageCircle,Plus,Upload,Check,Clock,AlertTriangle,LogOut,FolderOpen,RefreshCw,FileText,CalendarDays,Activity as ActivityIcon,Download,Trash2} from "lucide-react";
+import {Search,Phone,MessageCircle,Plus,Upload,Check,Clock,AlertTriangle,LogOut,FolderOpen,RefreshCw,FileText,CalendarDays,Activity as ActivityIcon,Download,Trash2,CheckSquare,Edit3,X,Save,Settings,ExternalLink} from "lucide-react";
 
 type Lead={id:string;user_id:string;folder_id:string|null;client_name:string|null;business_name:string;category:string|null;phone:string|null;whatsapp:string|null;email:string|null;website:string|null;instagram:string|null;address:string|null;city:string|null;state:string|null;country:string|null;source:string|null;status:string;priority:string;notes:string|null;last_contacted_at:string|null;created_at:string;call_attempts:number;last_call_outcome:string|null};
 type Folder={id:string;name:string;icon:string;color:string;description:string|null};
@@ -10,7 +10,7 @@ type Followup={id:string;lead_id:string;title:string;description:string|null;sch
 type Template={id:string;folder_id:string|null;phase_number:number;title:string;message:string};
 
 const statuses=["New","Pending","Contacted","Follow-up","Interested","Not Interested","No Response","Wrong Number","Converted","Closed"];
-const priorities=["Low","Medium","High","Urgent"];
+const priorities=["Low","Medium","High","Urgent"]; const outcomes=["Called","No Answer","Busy","Call Back","Wrong Number"];
 const fields=["client_name","business_name","category","phone","whatsapp","email","website","instagram","address","city","state","country","source","notes"];
 
 function val(s:any,k:string){return s?.[k]===undefined||s?.[k]===null?"":String(s[k]);}
@@ -21,7 +21,7 @@ export default function Home(){
  const [user,setUser]=useState<any>(null),[leads,setLeads]=useState<Lead[]>([]),[folders,setFolders]=useState<Folder[]>([]),[followups,setFollowups]=useState<Followup[]>([]),[templates,setTemplates]=useState<Template[]>([]),[activities,setActivities]=useState<any[]>([]);
  const [q,setQ]=useState(""),[status,setStatus]=useState(""),[folder,setFolder]=useState(""),[busy,setBusy]=useState(true),[tab,setTab]=useState("dashboard"),[page,setPage]=useState(1),[selected,setSelected]=useState<Lead|null>(null),[toast,setToast]=useState("");
  const [showImport,setShowImport]=useState(false),[showFolder,setShowFolder]=useState(false),[showTemplate,setShowTemplate]=useState(false),[showFollowup,setShowFollowup]=useState(false),[phaseLead,setPhaseLead]=useState<Lead|null>(null),[callLead,setCallLead]=useState<Lead|null>(null);
- const [note,setNote]=useState(""),[newFolder,setNewFolder]=useState(""),[newTemplate,setNewTemplate]=useState({title:"",message:"",folder_id:"",phase_number:1}),[follow,setFollow]=useState({title:"",description:"",scheduled_at:""}); const [progress,setProgress]=useState<any[]>([]),[notes,setNotes]=useState<any[]>([]); const [selectedIds,setSelectedIds]=useState<string[]>([]);
+ const [note,setNote]=useState(""),[newFolder,setNewFolder]=useState(""),[newTemplate,setNewTemplate]=useState({title:"",message:"",folder_id:"",phase_number:1}),[follow,setFollow]=useState({title:"",description:"",scheduled_at:""}); const [progress,setProgress]=useState<any[]>([]),[notes,setNotes]=useState<any[]>([]); const [selectedIds,setSelectedIds]=useState<string[]>([]); const [showSettings,setShowSettings]=useState(false),[editTemplate,setEditTemplate]=useState<any>(null),[editFollowup,setEditFollowup]=useState<any>(null); const [apiConfigs,setApiConfigs]=useState<any[]>([]);
  const input=useRef<HTMLInputElement>(null);
 
  async function load(u:any){
