@@ -33,6 +33,17 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Type-check
         run: npm run typecheck
+      - name: Resolve Supabase publishable key
+        shell: bash
+        run: |
+          if [ -z "$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY" ]; then
+            KEY="$(sed -n 's/^NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=//p' .env.example | head -n 1)"
+            if [ -z "$KEY" ] || [ "$KEY" = "your_supabase_publishable_key" ]; then
+              echo "::error::Missing Supabase publishable key. Add NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in GitHub Actions secrets."
+              exit 1
+            fi
+            echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=$KEY" >> "$GITHUB_ENV"
+          fi
       - name: Build static site
         run: npm run build
       - name: Configure GitHub Pages
