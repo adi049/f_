@@ -48,8 +48,7 @@ jobs:
         run: npm run build
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
+        # Enable Pages once in repository Settings → Pages, then select GitHub Actions.
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
