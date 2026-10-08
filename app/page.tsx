@@ -26,14 +26,15 @@ export default function Home(){
 
  async function load(u:any){
   setBusy(true);
-  const [l,f,fu,t,a,p,n]=await Promise.all([
+  const [l,f,fu,t,a,p,n,ac]=await Promise.all([
    supabase.from("leads").select("*").order("created_at",{ascending:false}),
    supabase.from("folders").select("id,name,icon,color,description").order("name"),
    supabase.from("followups").select("*").order("scheduled_at"),
    supabase.from("message_templates").select("*").order("folder_id").order("phase_number"),
    supabase.from("lead_activities").select("*").order("created_at",{ascending:false}).limit(100),
    supabase.from("lead_message_progress").select("*").order("phase_number"),
-   supabase.from("notes").select("*").order("created_at",{ascending:false}).limit(100)
+   supabase.from("notes").select("*").order("created_at",{ascending:false}).limit(100),
+   supabase.from("api_configs").select("*").order("created_at",{ascending:false})
   ]);
   if(l.data)setLeads(l.data);if(f.data)setFolders(f.data);if(fu.data)setFollowups(f.data);if(t.data)setTemplates(t.data);if(a.data)setActivities(a.data);if(arguments.length){ } const p=(arguments as any); setBusy(false);
  }
