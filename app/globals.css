@@ -1,0 +1,14 @@
+@import "tailwindcss";
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#080b10;color:#e8edf5;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#273244;border-radius:8px}
+.card{background:#0d121a;border:1px solid #1d2735;border-radius:14px}
+.muted{color:#8b98aa}
+.btn{border:1px solid #263448;background:#111925;padding:9px 12px;border-radius:9px}
+.btn:hover{background:#162131}
+.btn-primary{background:#2563eb;border-color:#2563eb}.btn-primary:hover{background:#1d4ed8}
+.field{width:100%;background:#0a0f16;border:1px solid #273448;border-radius:9px;padding:10px 12px;outline:none}
+.field:focus{border-color:#3b82f6}
