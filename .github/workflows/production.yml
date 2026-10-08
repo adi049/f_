@@ -46,6 +46,8 @@ jobs:
           fi
       - name: Build static site
         run: npm run build
+      - name: Keep Next.js assets available on GitHub Pages
+        run: touch ./out/.nojekyll
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         # Enable Pages once in repository Settings → Pages, then select GitHub Actions.
