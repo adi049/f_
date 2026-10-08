@@ -2,7 +2,7 @@
 import {useEffect,useMemo,useRef,useState} from "react";
 import * as XLSX from "xlsx";
 import {supabase} from "../lib/supabase";
-import {Search,Phone,MessageCircle,Plus,Upload,Check,Clock,AlertTriangle,LogOut,FolderOpen,RefreshCw,FileText,CalendarDays,Activity as ActivityIcon} from "lucide-react";
+import {Search,Phone,MessageCircle,Plus,Upload,Check,Clock,AlertTriangle,LogOut,FolderOpen,RefreshCw,FileText,CalendarDays,Activity as ActivityIcon,Download,Trash2} from "lucide-react";
 
 type Lead={id:string;user_id:string;folder_id:string|null;client_name:string|null;business_name:string;category:string|null;phone:string|null;whatsapp:string|null;email:string|null;website:string|null;instagram:string|null;address:string|null;city:string|null;state:string|null;country:string|null;source:string|null;status:string;priority:string;notes:string|null;last_contacted_at:string|null;created_at:string;call_attempts:number;last_call_outcome:string|null};
 type Folder={id:string;name:string;icon:string;color:string;description:string|null};
