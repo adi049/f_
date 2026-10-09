@@ -38,7 +38,7 @@ export default function Home(){
   ]);
   if(l.data)setLeads(l.data);if(f.data)setFolders(f.data);if(fu.data)setFollowups(fu.data);if(t.data)setTemplates(t.data);if(a.data)setActivities(a.data);if(p.data)setProgress(p.data);if(n.data)setNotes(n.data);if(ac.data)setApiConfigs(ac.data);setBusy(false);
  }
- useEffect(()=>{supabase.auth.getUser().then(({data})=>{if(data.user){setUser(data.user);load(data.user)}else window.location.href="/login"});const {data}=supabase.auth.onAuthStateChange((_,s)=>{if(s?.user)setUser(s.user);});return()=>data.subscription.unsubscribe()},[]);
+ useEffect(()=>{supabase.auth.getUser().then(({data})=>{if(data.user){setUser(data.user);load(data.user)}else window.location.href="/f_/login/"});const {data}=supabase.auth.onAuthStateChange((_,s)=>{if(s?.user)setUser(s.user);});return()=>data.subscription.unsubscribe()},[]);
 
  const filtered=useMemo(()=>leads.filter(l=>(!q||[l.business_name,l.client_name,l.phone,l.whatsapp,l.email,l.city,l.state].join(" ").toLowerCase().includes(q.toLowerCase()))&&(!status||l.status===status)&&(!folder||l.folder_id===folder)),[leads,q,status,folder]); const pageSize=50; const pageCount=Math.max(1,Math.ceil(filtered.length/pageSize)); const pageLeads=filtered.slice((page-1)*pageSize,page*pageSize);
  const today=new Date(); const due=followups.filter(x=>!x.completed&&new Date(x.scheduled_at)<=today); const todayCount=followups.filter(x=>!x.completed&&new Date(x.scheduled_at).toDateString()===today.toDateString()).length;
@@ -65,7 +65,7 @@ export default function Home(){
  async function bulkPriority(p:string){if(!selectedIds.length)return notify("Select leads first");await supabase.from("leads").update({priority:p}).in("id",selectedIds);setSelectedIds([]);await load(user);notify("Bulk priority updated")}
  async function bulkFolder(f:string){if(!selectedIds.length)return notify("Select leads first");await supabase.from("leads").update({folder_id:f||null}).in("id",selectedIds);setSelectedIds([]);await load(user);notify("Bulk folder updated")}
  async function bulkDelete(){if(!selectedIds.length||!confirm(`Delete ${selectedIds.length} selected leads?`))return;await supabase.from("leads").delete().in("id",selectedIds);setSelectedIds([]);await load(user);notify("Selected leads deleted")}
- async function signout(){await supabase.auth.signOut();window.location.href="/login";}
+ async function signout(){await supabase.auth.signOut();window.location.href="/f_/login/";}
 
  return <div className="min-h-screen">
  {toast&&<div className="fixed right-5 top-5 z-50 card px-4 py-3 text-sm">{toast}</div>}
