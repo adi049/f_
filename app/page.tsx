@@ -108,9 +108,10 @@ export default function Home(){
  return <div className="min-h-screen">
  {toast&&<div className="fixed right-5 top-5 z-50 card px-4 py-3 text-sm">{toast}</div>}
  {due.length>0&&<div className="border-b border-red-900 bg-red-950/50 px-5 py-3 text-red-200"><div className="font-semibold flex items-center gap-2"><AlertTriangle size={16}/>ACTION REQUIRED: {due.length} overdue/uncompleted follow-up{due.length>1?"s":""}</div><div className="text-xs mt-1">{due.slice(0,3).map(x=>x.title).join(" • ")}</div></div>}
+ {clientReminders.filter(r=>!r.completed&&new Date(r.remind_at)<=new Date()).length>0&&<button onClick={()=>setTab("my-clients")} className="w-full text-left border-b border-amber-900 bg-amber-950/40 px-5 py-3 text-amber-100"><div className="font-semibold flex items-center gap-2"><Clock size={16}/>CLIENT REMINDERS DUE: {clientReminders.filter(r=>!r.completed&&new Date(r.remind_at)<=new Date()).length}</div><div className="text-xs mt-1">{clientReminders.filter(r=>!r.completed&&new Date(r.remind_at)<=new Date()).slice(0,3).map(r=>r.title).join(" • ")} · Click to open My Clients</div></button>}
  <div className="flex min-h-[calc(100vh-0px)]">
   <aside className="hidden md:block w-60 border-r border-slate-800 p-4 bg-[#090d13]"><div className="text-xl font-semibold mb-7">LeadFlow</div>
-   {["dashboard","leads","my-clients","folders","followups","templates","activity"].map(x=><button key={x} onClick={()=>setTab(x)} className={`w-full text-left px-3 py-2 rounded-lg mb-1 capitalize ${tab===x?"bg-blue-600":"hover:bg-slate-900"}`}>{x==="followups"?`Today's Follow-ups`:x}</button>)}
+   {["dashboard","leads","my-clients","folders","followups","templates","activity"].map(x=><button key={x} onClick={()=>setTab(x)} className={`w-full text-left px-3 py-2 rounded-lg mb-1 capitalize ${tab===x?"bg-blue-600":"hover:bg-slate-900"}`}>{x==="followups"?"Today's Follow-ups":x==="my-clients"?"My Clients":x}</button>)}
    <button onClick={()=>setShowImport(true)} className="w-full text-left px-3 py-2 rounded-lg mb-1 hover:bg-slate-900">Import Leads</button>
    <button onClick={signout} className="w-full text-left px-3 py-2 rounded-lg mt-6 muted flex gap-2"><LogOut size={16}/>Sign out</button>
   </aside>
