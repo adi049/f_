@@ -6,7 +6,7 @@ export default function Login(){
  const [email,setEmail]=useState(""); const [password,setPassword]=useState(""); const [signup,setSignup]=useState(false); const [msg,setMsg]=useState(""); const [busy,setBusy]=useState(false);
  async function submit(e:FormEvent){e.preventDefault();setBusy(true);setMsg("");
   const r=signup?await supabase.auth.signUp({email,password}):await supabase.auth.signInWithPassword({email,password});
-  if(r.error)setMsg(r.error.message); else setMsg(signup?"Check your email to confirm your account.":"Logged in.");
+  if(r.error){setMsg(r.error.message);} else if(signup){setMsg("Check your email to confirm your account.");} else {window.location.href="/f_/"; return;}
   setBusy(false);
  }
  return <main className="min-h-screen grid place-items-center p-6"><div className="card w-full max-w-md p-7">
